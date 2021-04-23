@@ -1,0 +1,4 @@
+#Autorise la réécriture
+RewriteEngine On
+#Règle de réécriture
+RewriteRule "^([a-zA-Z0-9\-\_\/]*)$" "Public/index.php?p=$1"

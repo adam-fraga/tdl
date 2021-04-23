@@ -1,0 +1,22 @@
+{
+    "name": "adam/tdl",
+    "authors": [
+        {
+            "name": "adam-fraga",
+            "email": "adam.fraga@laplateforme.io"
+        }
+    ],
+
+    "require": {
+        "symfony/var-dumper": "^5.2",
+      "ext-pdo": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\Core\\": "Core/",
+            "App\\Controllers\\": "Controllers/",
+            "App\\Models\\": "Models/"
+        }
+    },
+    "description": ""
+}
