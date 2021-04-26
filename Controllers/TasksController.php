@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Core\Form;
 use App\Models\TasksModel;
 
 class TasksController extends Controller
@@ -19,7 +20,7 @@ class TasksController extends Controller
         $this->render('tasks/index', ['tasks' => $tasks]);
     }
 
-    /** Cette methode affiche les détails d' une taches spécifique quand l'utilisateur clique dessus
+    /** Cette methode affiche les détails d'une taches spécifique quand l'utilisateur clique dessus
      * @param int $id
      */
     public function oneTask(int $id)
@@ -31,4 +32,7 @@ class TasksController extends Controller
         //On envoie à la vue
         $this->render('tasks/oneTask', ['task' => $task]);
     }
+
+
 }
+

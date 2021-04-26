@@ -2,23 +2,47 @@
 
 namespace App\Models;
 
+use App\Core\Db;
+
 class TasksModel extends Model
 {
     private $_nom;
     private $_description;
-    private $_date_creation;
-    private $_date_validation;
-    private $_status;
+    private $_dateCreation;
+    private $_dateValidation;
+
     private $_id_utilisateur;
     private $_importance;
 
     /**
      *  Permet de set la table dynamiquement
      */
-     function __construct()
+    function __construct()
     {
         parent::__construct();
         $this->_table = 'taches';
+    }
+
+    /**
+     * @param TasksModel $Tache Objet de type Task
+     * @param string $id Identifiant utilisateur
+     */
+    public function createTask(TasksModel $Tache, string $id)
+    {
+        $this->_db = new Db();
+        //Date creation task
+        $dateCreation = new \DateTime('now');
+        $dateCreation->format('Y-m-d H:00');
+
+        $query = "INSERT INTO" . $this->_table . "(nom, description, date_creation, date_validation,id_utilisateur, importance) VALUES (?,?,?,?,?,?,?)";
+        $stmt = $this->_db->prepare($query);
+        $stmt->bindValue(1, $this->_nom);
+        $stmt->bindValue(2, $this->_description);
+        $stmt->bindValue(3, $this->$dateCreation);
+        $stmt->bindValue(4, $this->_dateValidation);
+        $stmt->bindValue(5, $this->_id_utilisateur);
+        $stmt->bindValue(6, $this->_importance);
+        $stmt->execute();
     }
 
     /**
@@ -74,7 +98,7 @@ class TasksModel extends Model
      */
     public function getDateCreation()
     {
-        return $this->_date_creation;
+        return $this->_dateCreation;
     }
 
     /**
@@ -82,7 +106,7 @@ class TasksModel extends Model
      */
     public function setDateCreation($date_creation): void
     {
-        $this->_date_creation = $date_creation;
+        $this->_dateCreation = $date_creation;
     }
 
     /**
@@ -90,7 +114,7 @@ class TasksModel extends Model
      */
     public function getDateValidation()
     {
-        return $this->_date_validation;
+        return $this->_dateValidation;
     }
 
     /**
@@ -98,7 +122,7 @@ class TasksModel extends Model
      */
     public function setDateValidation($date_validation): void
     {
-        $this->_date_validation = $date_validation;
+        $this->_dateValidation = $date_validation;
     }
 
     /**

@@ -35,6 +35,8 @@ class Model extends Db
         return $query->fetchAll();
     }
 
+
+
     /** Execute les requêtes passé en paramètres
      * @param string $sql
      * @param array|null $attributs
@@ -67,5 +69,14 @@ class Model extends Db
             }
         }
 
+    }
+
+    /**
+     * Sécurise les données passés en parametre
+     */
+    public function secure($donnees): string
+    {
+        $donnees = strip_tags($donnees);
+        return $donnees = htmlspecialchars($donnees);
     }
 }
