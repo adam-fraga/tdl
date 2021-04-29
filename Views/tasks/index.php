@@ -2,77 +2,27 @@
  éclaté grace à extract dans la vue-->
 <?php //var_dump($tasks);
 if (isset($_POST['task'])):
-    var_dump($_POST);
     $Tasks = new \App\Models\TasksModel();
     $_POST['nom'] = $Tasks->secure($_POST['nom']);
     $_POST['description'] = $Tasks->secure($_POST['description']);
     $_POST['dateCreation'] = $Tasks->secure($_POST['dateCreation']);
     $_POST['importance'] = $Tasks->secure($_POST['importance']);
     $Tasks->hydrate($_POST);
-    var_dump($Tasks);
 endif;
 ?>
-
 <div class="flex flex-row h-screen bg-gray-100">
     <div class="flex flex-row flex-auto bg-white rounded-tl-xl border-l shadow-xl">
-        <div class="flex flex-col w-1/5 bg-gray-100">
+        <!--Section des tâches crée-->
+        <section class="flex flex-col w-1/5 bg-gray-100">
             <div class="flex-none  h-24 py-6 border-b border-gray-400">
                 <h1 class="text-center font-semibold text-2xl">Mes Tâches</h1>
             </div>
-            <div class="flex-auto overflow-y-auto">
-
-                <a class="block border-b">
-                    <div class="border-l-2 border-transparent hover:bg-gray-100 p-3 space-y-4">
-                        <div class="flex flex-row items-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <strong class="flex-grow text-sm">Tâche</strong>
-                            <div class="text-sm text-gray-600">5hr</div>
-                        </div>
-
-                        <div class="flex flex-row items-center space-x-1">
-                            <svg class="flex-none w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <div class="flex-grow truncate text-xs">some message content whedkjwhed wkjehdkjweh
-                                dkjhwekjdhwekjhd
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a class="block border-b">
-                    <div class="border-l-2 border-pink-200 bg-pink-100 p-3 space-y-4">
-                        <div class="flex flex-row items-center space-x-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <strong class="flex-grow text-sm">Tâche</strong>
-                            <div class="text-sm text-gray-600">5hr</div>
-                        </div>
-
-                        <div class="flex flex-row items-center space-x-1">
-                            <svg class="flex-none w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <div class="flex-grow truncate text-xs">some message content whedkjwhed wkjehdkjweh
-                                dkjhwekjdhwekjhd
-                            </div>
-                        </div>
-                    </div>
-                </a>
+            <!--COnteneur des taches-->
+            <div id="taskContainer" class="flex-auto overflow-y-auto">
 
             </div>
-        </div>
-
+        </section>
+        <!--Zone central-->
         <div class="w-3/5 border-l border-r border-gray-400 flex flex-col">
             <div class="flex-none h-20 flex flex-row justify-between items-center p-5 border-b">
                 <div class="flex flex-col space-y-1">
@@ -109,22 +59,31 @@ endif;
                  style="background-image: url(https://static.intercomassets.com/ember/assets/images/messenger-backgrounds/background-1-99a36524645be823aabcd0e673cb47f8.png)">
                 <!--Tableau de bord-->
                 <div id="" class="flex w-full justify-evenly">
-                    <section id="upto" class="h-64 w-2/6 p-6  border border-pink-200 bg-white">
+                    <section id="upto" class=" h-64 w-2/6 p-6">
                         <h2 class="text-center">A faire</h2>
                         <hr class="mt-6 border border-pink-100 shadow-sm">
+                        <div class="taskCase">
+
+                        </div>
                     </section>
-                    <section id="current" class="h-64 w-2/6 p-6  border border-pink-200 bg-white">
+                    <section id="current" class=" h-64 w-2/6 p-6">
                         <h2 class="text-center">En cours</h2>
                         <hr class="mt-6 border border-pink-100 shadow-sm">
+                        <div class="taskCase">
+
+                        </div>
                     </section>
-                    <section id="done" class="h-64 w-2/6 p-6  border border-pink-200 bg-white">
+                    <section id="done" class=" h-64 w-2/6 p-6">
                         <h2 class="text-center">Terminé</h2>
                         <hr class="mt-6 border border-pink-100 shadow-sm">
+                        <div class="taskCase">
+
+                        </div>
                     </section>
                 </div>
             </div>
             <!--Task Form-->
-            <form method="POST" class="">
+            <form id="taskForm" method="POST" class="">
                 <div class="">
                     <div class="flex-none h-40 w-full pt-0">
                         <!--Container Form-->
@@ -134,24 +93,24 @@ endif;
                                 <!--Titre-->
                                 <label for="title"></label>
                                 <input class="h-8 outline-none border focus:border-pink-200 hover:border-pink-200 rounded p-4 shadow-lg"
-                                       type="text" name="nom" id="title" placeholder="Titre">
+                                       required type="text" name="nom" id="title" placeholder="Titre">
                                 <!--Description-->
                                 <label for="describe"></label>
                                 <textarea
                                         id="describe"
                                         class="outline-none border focus:border-pink-200 hover:border-pink-200 rounded p-4 shadow-lg"
                                         placeholder="Description..."
-                                        name="description"></textarea>
+                                        required name="description"></textarea>
                             </div>
                             <!--Container Form 2-->
                             <div class="justify-evenly flex text-center text-xs flex-col">
                                 <label for="date"></label>
                                 <input class="h-8  outline-none border focus:border-pink-200 hover:border-pink-200 rounded p-4 shadow-lg"
-                                       type="date" name="dateCreation" id="date">
+                                       required type="date" name="dateCreation" id="date">
                                 <!--Choix importance-->
                                 <label for="list">Prioritée:</label>
                                 <input id="list" list="browser" name="importance"
-                                       class="h-8 outline-none border focus:border-pink-200 hover:border-pink-200 rounded p-4 shadow-lg">
+                                       required  class="h-8 outline-none border focus:border-pink-200 hover:border-pink-200 rounded p-4 shadow-lg">
                                 <datalist id="browser">
                                     <option value="Haute">
                                     <option value="Moyenne">
@@ -160,7 +119,8 @@ endif;
                             </div>
                             <!--Container Form 3-->
                             <div class="self-center inline-block mr-2 mt-2">
-                                <button type="submit"
+                                <button id="addTask"
+                                        type="submit"
                                         class=" focus:outline-none text-black text-sm py-2.5 px-5 border-b-4 border-pink-200 rounded-md bg-pink-100 hover:bg-pink-200"
                                         name="task">
                                     <i>Ajouter</i>

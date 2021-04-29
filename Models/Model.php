@@ -15,7 +15,7 @@ class Model extends Db
 
     // Propriétés permettant de personnaliser les requêtes
     protected string $_table;
-    public $_id;
+    protected $_id;
 
     /** Méthode permettant d'obtenir l'enregistrement d'une table
      * @return mixed

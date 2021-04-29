@@ -1,4 +1,5 @@
 <?php
+session_start();
 //Constante contenant le dossier racine du projet
 define('ROOT', dirname(__DIR__));
 

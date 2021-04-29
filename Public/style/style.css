@@ -3,6 +3,24 @@
     transition: all;
 }
 
-.shadow-perso{
+.shadow-perso {
     box-shadow: gray 2px 2px 5px;
+}
+
+.dragged {
+    border: solid 2px #ffb1bb;
+}
+
+.taskCase {
+    margin: auto;
+    height: 200px;
+    width: 100%;
+}
+
+.hovered {
+   border: 1px dashed pink;
+}
+
+.none {
+    display: none;
 }

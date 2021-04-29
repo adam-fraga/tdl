@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Core\Db;
+
 class UserModel extends Model
 {
     private $_prenom;
@@ -16,6 +18,29 @@ class UserModel extends Model
     {
         parent::__construct();
         $this->_table = 'utilisateurs';
+    }
+
+    /** Inscrit un utilisateur et lui fourni un ID
+     * @param UserModel $userModel Objet UserModel représentatn un utilisateur
+     * @return bool
+     */
+    public function subscribe(UserModel $userModel): bool
+    {
+        $this->_db = new Db();
+        $this->_password = password_hash($this->_password, CRYPT_BLOWFISH);
+
+        $query = "INSERT INTO " . $this->_table . "(prenom, nom, email, password) VALUES (?,?,?,?)";
+        $stmt = $this->_db->prepare($query);
+        $stmt->bindValue(1, $this->_prenom);
+        $stmt->bindValue(2, $this->_nom);
+        $stmt->bindValue(3, $this->_email);
+        $stmt->bindValue(4, $this->_password);
+        if ($stmt->execute()) {
+            $query2 = "SELECT MAX(id) AS max_id, (id) FROM utilisateurs";
+            $result = $this->_db->query($query2)->fetch(\PDO::FETCH_ASSOC);
+            $userModel->setId($result['max_id']);
+            return true;
+        } else return false;
     }
 
     /**

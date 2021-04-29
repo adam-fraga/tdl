@@ -23,7 +23,7 @@ class TasksModel extends Model
         $this->_table = 'taches';
     }
 
-    /**
+    /** Crée une tâche et l'insert en BDD
      * @param TasksModel $Tache Objet de type Task
      * @param string $id Identifiant utilisateur
      */
@@ -34,7 +34,7 @@ class TasksModel extends Model
         $dateCreation = new \DateTime('now');
         $dateCreation->format('Y-m-d H:00');
 
-        $query = "INSERT INTO" . $this->_table . "(nom, description, date_creation, date_validation,id_utilisateur, importance) VALUES (?,?,?,?,?,?,?)";
+        $query = "INSERT INTO " . $this->_table . "(nom, description, date_creation, date_validation,id_utilisateur, importance) VALUES (?,?,?,?,?,?)";
         $stmt = $this->_db->prepare($query);
         $stmt->bindValue(1, $this->_nom);
         $stmt->bindValue(2, $this->_description);
