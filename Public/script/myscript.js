@@ -1,8 +1,5 @@
 let btnTask = document.querySelector('#addTask');
 let tasksContainer = document.querySelector('#taskContainer');
-let upto = document.querySelector('#upto');
-let current = document.querySelector('#current');
-let done = document.querySelector('#done');
 
 // Insert new task on event submit
 document.forms['taskForm'].addEventListener('submit', function (e) {
@@ -56,11 +53,11 @@ document.forms['taskForm'].addEventListener('submit', function (e) {
 
     //Delete Task
     let btnDeleteTask = document.createElement('a');
-    btnDeleteTask.classList.add('inline-block');
+    btnDeleteTask.classList.add('inline-block', 'deleteTask');
     btnDeleteTask.innerHTML = `<i class= "fas ml-6 mr-3 cursor-pointer text-lg self-end fa-times-circle text-red-400" ></i>`;
 
 
-    //Organize elements into the dom
+    //Organize and append elements into the DOM
     taskelem11.append(btnDeleteTask);
     taskelem11.append(btnShowTask);
     taskelem3.append(taskelem6);
@@ -71,14 +68,13 @@ document.forms['taskForm'].addEventListener('submit', function (e) {
     taskelem1.append(taskelem2);
     tasksContainer.append(taskelem1);
 
-    // DELETE TASK
 
     // DRAG&DROP
     const base = document.querySelectorAll('.task');
 
     // For loop to set a drag listenner on each append link,
     // (Drag must be on append listenner for followin the script continuity)
-    for (let i = 0; base.length; i++) {
+    for (let i = 0; i < base.length; i++) {
         base[i].addEventListener('dragstart', dragStart);
         base[i].addEventListener('dragend', dragEnd);
     }
@@ -94,14 +90,18 @@ document.forms['taskForm'].addEventListener('submit', function (e) {
     function dragEnd() {
         this.classList.remove('none', 'dragged');
     }
-
+//DELETETASK
+    const deleteBtn = document.querySelectorAll('.deleteTask')
+    for (let k = 0; k < deleteBtn.length; k++) {
+        deleteBtn[k].addEventListener('click', deleteTask)
+    }
 
 })
 // Select all container for task
 const node = document.querySelectorAll('.taskCase');
 
 // Iteration on  every node to add multiple event on each of them
-for (let y = 0; node.length; y++) {
+for (let y = 0; y < node.length; y++) {
     node[y].addEventListener('dragover', dragOver);
     node[y].addEventListener('dragenter', dragEnter);
     node[y].addEventListener('dragleave', dragLeave);
@@ -110,23 +110,31 @@ for (let y = 0; node.length; y++) {
 
 // Over the container
 function dragOver(e) {
+    this.classList.add('bg-blue-100');
     e.preventDefault();
 }
 
-// When Enter in the container
+//Function listenner When a task  Enter in the container
 function dragEnter(e) {
     e.preventDefault();
     this.classList.add('hovered');
 }
 
-//When leave the container
+//Function listenner When a task leave  the container
 function dragLeave() {
     this.classList.remove('hovered');
+    this.classList.remove('bg-blue-100');
+
 }
 
-//When release on a container
+//Function listenner When release on a task container
 function dragDrop() {
-    console.log('droped')
     let draggedElement = document.querySelector('.dragged');
     this.append(draggedElement);
+}
+
+// Function listenner Delete task
+function deleteTask(e) {
+    e.preventDefault()
+    this.parentNode.parentNode.parentNode.parentNode.remove();
 }
