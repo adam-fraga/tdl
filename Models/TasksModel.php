@@ -23,28 +23,6 @@ class TasksModel extends Model
         $this->_table = 'taches';
     }
 
-    /** Crée une tâche et l'insert en BDD
-     * @param TasksModel $Tache Objet de type Task
-     * @param string $id Identifiant utilisateur
-     */
-    public function createTask(TasksModel $Tache, string $id)
-    {
-        $this->_db = new Db();
-        //Date creation task
-        $dateCreation = new \DateTime('now');
-        $dateCreation->format('Y-m-d H:00');
-
-        $query = "INSERT INTO " . $this->_table . "(nom, description, date_creation, date_validation,id_utilisateur, importance) VALUES (?,?,?,?,?,?)";
-        $stmt = $this->_db->prepare($query);
-        $stmt->bindValue(1, $this->_nom);
-        $stmt->bindValue(2, $this->_description);
-        $stmt->bindValue(3, $this->$dateCreation);
-        $stmt->bindValue(4, $this->_dateValidation);
-        $stmt->bindValue(5, $this->_id_utilisateur);
-        $stmt->bindValue(6, $this->_importance);
-        $stmt->execute();
-    }
-
     /**
      * @return mixed
      */
@@ -123,22 +101,6 @@ class TasksModel extends Model
     public function setDateValidation($date_validation): void
     {
         $this->_dateValidation = $date_validation;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStatus()
-    {
-        return $this->_status;
-    }
-
-    /**
-     * @param mixed $status
-     */
-    public function setStatus($status): void
-    {
-        $this->_status = $status;
     }
 
     /**

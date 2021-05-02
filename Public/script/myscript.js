@@ -26,16 +26,16 @@ document.forms['taskForm'].addEventListener('submit', function (e) {
     taskelem6.classList.add('flex-grow', 'text-sm');
 
     if (prio === 'Haute') {
-        taskelem6.classList.add('text-red-400')
+        taskelem6.classList.add('text-red-400','text-lg')
     } else if (prio === 'Moyenne') {
-        taskelem6.classList.add('text-yellow-300')
+        taskelem6.classList.add('text-yellow-300','text-lg')
     } else if (prio === 'Basse') {
-        taskelem6.classList.add('text-green-400')
+        taskelem6.classList.add('text-green-400','text-lg')
     }
     taskelem6.innerHTML = title;
     //Date Task
     let taskelem7 = document.createElement('p');
-    taskelem7.classList.add('text-sm', 'text-gray-600');
+    taskelem7.classList.add('text-sm', 'text-gray-900', 'text-right','text-xs', 'italic', 'mt-3',);
     taskelem7.innerHTML = date;
 
     let taskelem8 = document.createElement('div');
@@ -43,25 +43,18 @@ document.forms['taskForm'].addEventListener('submit', function (e) {
 
     // Description Task
     let taskelem11 = document.createElement('p');
-    taskelem11.classList.add('flex-grow', 'truncate', 'text-xs');
+    taskelem11.classList.add('flex-grow', 'truncate', 'text-sm');
     taskelem11.innerHTML = des;
-
-    // Show Task in detail
-    let btnShowTask = document.createElement('a');
-    btnShowTask.classList.add('inline-block');
-    btnShowTask.innerHTML = `<i class="far fa-eye cursor-pointer text-lg text-green-500"></i>`;
 
     //Delete Task
     let btnDeleteTask = document.createElement('a');
     btnDeleteTask.classList.add('inline-block', 'deleteTask');
     btnDeleteTask.innerHTML = `<i class= "fas ml-6 mr-3 cursor-pointer text-lg self-end fa-times-circle text-red-400" ></i>`;
 
-
     //Organize and append elements into the DOM
-    taskelem11.append(btnDeleteTask);
-    taskelem11.append(btnShowTask);
+    taskelem11.append(taskelem7);
     taskelem3.append(taskelem6);
-    taskelem3.append(taskelem7);
+    taskelem3.append(btnDeleteTask);
     taskelem8.append(taskelem11);
     taskelem2.append(taskelem3);
     taskelem2.append(taskelem8);
@@ -90,6 +83,7 @@ document.forms['taskForm'].addEventListener('submit', function (e) {
     function dragEnd() {
         this.classList.remove('none', 'dragged');
     }
+
 //DELETETASK
     const deleteBtn = document.querySelectorAll('.deleteTask')
     for (let k = 0; k < deleteBtn.length; k++) {
@@ -131,6 +125,7 @@ function dragLeave() {
 function dragDrop() {
     let draggedElement = document.querySelector('.dragged');
     this.append(draggedElement);
+    this.classList.remove('bg-blue-100');
 }
 
 // Function listenner Delete task

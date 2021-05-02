@@ -1,15 +1,5 @@
-<!--On peut affiché les donnée du controller avec les variables
+<!--Note perso: On peut affiché les donnée du controller avec les variables
  éclaté grace à extract dans la vue-->
-<?php //var_dump($tasks);
-if (isset($_POST['task'])):
-    $Tasks = new \App\Models\TasksModel();
-    $_POST['nom'] = $Tasks->secure($_POST['nom']);
-    $_POST['description'] = $Tasks->secure($_POST['description']);
-    $_POST['dateCreation'] = $Tasks->secure($_POST['dateCreation']);
-    $_POST['importance'] = $Tasks->secure($_POST['importance']);
-    $Tasks->hydrate($_POST);
-endif;
-?>
 <div class="flex flex-row h-screen bg-gray-100">
     <div class="flex flex-row flex-auto bg-white rounded-tl-xl border-l shadow-xl">
         <!--Section des tâches crée-->
@@ -21,7 +11,6 @@ endif;
             </div>
             <!--COnteneur des taches-->
             <div id="taskContainer" class="flex-auto overflow-y-auto">
-
             </div>
         </section>
         <!--Zone central-->
@@ -41,7 +30,6 @@ endif;
                         <h2 class="text-center font-bold text-gray-400">À faire</h2>
                         <hr class="mt-6 border border-pink-100 shadow-sm">
                         <div class="taskCase">
-
                         </div>
                     </section>
                     <section id="current" class=" h-64 w-2/6 p-6">
@@ -98,9 +86,10 @@ endif;
                         <!--Container Form 3-->
                         <div class="self-center inline-block mr-2 mt-2">
                             <button id="addTask"
+                                    name="task"
                                     type="submit"
                                     class=" focus:outline-none text-black text-sm py-2.5 px-5 border-b-4 border-pink-200 rounded-md bg-pink-100 hover:bg-pink-200"
-                                    name="task">
+                            >
                                 <i>Ajouter</i>
                             </button>
                         </div>

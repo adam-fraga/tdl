@@ -4,6 +4,11 @@ namespace App\Controllers;
 
 abstract class Controller
 {
+    public function __construct()
+    {
+        session_start();
+    }
+
     public function render(string $fichier, array $donnees = [], $template = 'default')
     {
         //On extrait le contenu de $donnees

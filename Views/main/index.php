@@ -1,10 +1,25 @@
+<?php
+$connexion = null;
+if (isset($_POST['connect'])):
+    $User = new \App\Models\UserModel();
+    $mail = $User->secure($_POST['email']);
+    $pass = $User->secure($_POST['password']);
+    $check = $User->checkUser($mail, $pass);
+    if (is_array($check) && $check[0] === true) {
+        array_shift($check);
+        $_SESSION['user'] = $check;
+        header('location:tasks');
+    } else $connexion = false;
+endif;
+?>
 <section class="min-h-screen flex items-stretch text-white ">
     <div class="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center"
          style="background-image: url(https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2389&q=80);">
         <div class="w-full px-24 z-10 h-4/6">
             <h1 class="text-4xl font-bold text-pink-200 text-left tracking-wide">MiniMalist</h1>
             <p class="text-3xl my-8">Organisez vous de manière intuitive.</p>
-            <p class="text-lg my-8">Ayez l'esprit tranquille en ajoutant toutes vos tâches à votre to-do list (où que vous soyez ou quel que soit l'appareil utilisé)..</p>
+            <p class="text-lg my-8">Ayez l'esprit tranquille en ajoutant toutes vos tâches à votre to-do list (où que
+                vous soyez ou quel que soit l'appareil utilisé)..</p>
         </div>
         <div class="bottom-0 absolute p-4 text-center right-0 left-0 flex justify-center space-x-4">
                 <span>
@@ -29,25 +44,30 @@
         <div class="w-full py-6 z-20">
             <h1 class="my-6 text-center text-6xl font-bold text-pink-100 text-left tracking-wide"><i
                         class="fas fa-book-open"></i></h1>
-            <form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+            <form method="post" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                 <div class="pb-2 pt-4">
                     <label for="email"></label>
-                    <input type="email" name="email" id="email" placeholder="Email"
-                           class="block w-full p-4 text-lg rounded-sm bg-gray-50">
+                    <input
+                            type="email" name="email" id="email" placeholder="Email"
+                            class="block w-full p-4 text-lg text-gray-600 rounded-sm bg-gray-50">
                 </div>
                 <div class="pb-2 pt-4">
                     <label for="password"></label>
-                    <input class="block w-full p-4 text-lg rounded-sm bg-gray-50" id="password" name="password"
+                    <input class="block w-full p-4 text-lg text-gray-600 rounded-sm bg-gray-50" id="password"
+                           name="password"
                            placeholder="Password" type="password">
                 </div>
                 <div class="text-right text-xs text-gray-400 hover:underline hover:text-gray-100">
                     <a href="#">Mot de passe oublié?</a>
                 </div>
+                <?= $connexion === false ? '<span class="text-red-400 text-center">Vos identifiants sont incorrects!</span>' : '' ?>
                 <div class="px-4 pb-2 pt-4">
-                    <a href="/tdl/User/connect" class="text-gray-200 hover:text-gray-900 text-sm block w-60 mx-auto p-2  rounded-lg bg-gray-900 hover:bg-pink-200 hover:shadow-lg focus:outline-none">
+                    <button type="submit" name="connect" value="submit"
+                            class="text-gray-200 hover:text-gray-900 text-sm block w-60 mx-auto p-2  rounded-lg bg-gray-900 hover:bg-pink-200 hover:shadow-lg focus:outline-none">
                         Connexion
-                    </a>
-                    <a href="/tdl/User" class="text-gray-200 hover:text-gray-900 text-sm my-6 block w-60 mx-auto p-2  rounded-lg bg-gray-900 hover:bg-pink-200 hover:shadow-lg focus:outline-none">
+                    </button>
+                    <a href="/tdl/User"
+                       class="text-gray-200 hover:text-gray-900 text-sm my-6 block w-60 mx-auto p-2  rounded-lg bg-gray-900 hover:bg-pink-200 hover:shadow-lg focus:outline-none">
                         Inscription
                     </a>
                 </div>

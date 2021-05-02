@@ -43,6 +43,24 @@ class UserModel extends Model
         } else return false;
     }
 
+    /** Check la connexion utilisateur
+     * @param string $email
+     * @param string $password
+     */
+    public function checkUser(string $email, string $password)
+    {
+        $this->_db = new Db();
+        $sql = "SELECT * FROM utilisateurs WHERE email = '$email'";
+        $res = $this->_db->query($sql)->fetch();
+        if (isset($res) && $res !== false):
+            $dbPass = $res->password;
+            $array[0] = password_verify($password, $dbPass);
+            array_push($array, $res->email, $res->nom, $res->prenom);
+            return $array;
+        else: return false;
+        endif;
+    }
+
     /**
      * @return mixed
      */

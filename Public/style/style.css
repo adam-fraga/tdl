@@ -6,6 +6,9 @@
 .shadow-perso {
     box-shadow: gray 2px 2px 5px;
 }
+.tshadow-perso{
+    text-shadow: 1px 1px 2px #ffffff;
+}
 
 .dragged {
     border: solid 2px #ffb1bb;
@@ -18,7 +21,7 @@
 }
 
 .hovered {
-   border: 1px dashed pink;
+    border: 1px dashed pink;
 }
 
 .none {

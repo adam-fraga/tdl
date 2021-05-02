@@ -7,12 +7,10 @@ if (isset($_POST['submit'])):
     $_POST['email'] = $User->secure($_POST['email']);
     $_POST['password'] = $User->secure($_POST['password']);
     $User->hydrate($_POST);
-    if ($User->subscribe($User)) {
-        $_SESSION['User'] = $User;
-        $sub = true;
-    } else {
-        $sub = false;
-    }
+    $User->subscribe($User);
+    $_SESSION['user'] = $User;
+    $sub = true;
+    isset($_SESSION['user']) && $sub === true ? header('location:tasks') : $sub = false;
 endif;
 ?>
 <div class="min-w-screen min-h-screen flex items-center justify-center bg-gray-100 px-5 py-5">
@@ -28,7 +26,6 @@ endif;
                 </div>
                 <div>
                     <form method="post">
-
                         <div class="flex -mx-3">
                             <div class="w-1/2 px-3 mb-5">
                                 <label for="fname" class="text-xs font-semibold px-1">Prénom</label>
